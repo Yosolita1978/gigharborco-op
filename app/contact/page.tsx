@@ -105,6 +105,21 @@ export default function Contact() {
 
               <div>
                 <h3 className="font-semibold text-foreground mb-2">
+                  Nonprofit Status
+                </h3>
+                <p className="text-foreground/70 text-sm">
+                  Gig Harbor Women&apos;s Mutual Association
+                </p>
+                <p className="text-foreground/70 text-sm">
+                  DBA: Gig Harbor Women&apos;s Co-Op
+                </p>
+                <p className="text-foreground/70 text-sm">
+                  501(c)(3) &middot; EIN: 99-2854438
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-foreground mb-2">
                   Newsletter
                 </h3>
                 <p className="text-foreground/70">

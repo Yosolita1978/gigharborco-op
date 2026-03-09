@@ -71,8 +71,7 @@ export default function OurStory() {
               <h3 className="font-semibold text-lg text-foreground">Today</h3>
               <p className="text-foreground/70 mt-1">
                 Over 300 onboarded members and nearly 10,000 hours of community
-                service tracked. Zero budget for ongoing costs &mdash; powered
-                entirely by our members.
+                service tracked &mdash; powered entirely by our members.
               </p>
             </li>
           </ul>

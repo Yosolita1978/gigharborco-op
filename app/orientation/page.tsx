@@ -1,10 +1,24 @@
+import Link from "next/link";
+
 const upcomingOrientations = [
-  { date: "Mon, Feb 2", time: "6:30 PM", location: "Nichols Community Ctr" },
-  { date: "Thu, Feb 12", time: "11:00 AM", location: "Gig Harbor Library" },
-  { date: "Mon, Feb 23", time: "2:30 PM", location: "Key Center Library" },
-  { date: "Mon, Mar 2", time: "11:00 AM", location: "Nichols Community Ctr" },
-  { date: "Sun, Mar 8", time: "2:00 PM", location: "Port Orchard Library" },
-  { date: "Sat, Mar 21", time: "10:00 AM", location: "Cutters Point 'Flagship'" },
+  {
+    date: "Mon, Mar 2",
+    time: "11:00 AM",
+    location: "Nichols Community Center",
+    address: "690 9th Ave, Fox Island, WA 98333",
+  },
+  {
+    date: "Sun, Mar 8",
+    time: "2:00 PM",
+    location: "Kitsap Regional Library, Port Orchard",
+    address: "87 Sidney Ave, Port Orchard, WA 98366",
+  },
+  {
+    date: "Sat, Mar 21",
+    time: "10:00 AM",
+    location: "Cutters Point Coffee",
+    address: "5500 Olympic Dr A101, Gig Harbor, WA 98335",
+  },
 ];
 
 export default function Orientation() {
@@ -13,25 +27,36 @@ export default function Orientation() {
       number: 1,
       title: "Attend Orientation",
       description:
-        "Join a one-hour orientation meeting. Sessions are available through our Facebook Group events tab or BAND community.",
+        "Join a one-hour orientation meeting. Sessions can be found on our Google Calendar.",
+      link: { href: "/events", label: "View Calendar" },
     },
     {
       number: 2,
       title: "Complete Application",
       description:
         "Fill out an application form where you consent to a public background check.",
+      link: {
+        href: "https://docs.google.com/forms/d/e/1FAIpQLSfg9hit9qSQEw4rAsuW_YlTpiLTr14hs4UerQDknXQqda_ngw/viewform",
+        label: "Open Application Form",
+        external: true,
+      },
     },
     {
       number: 3,
       title: "Review Policies",
       description:
         "Review our organizational policies and procedures using the Co-op Public Files.",
+      link: {
+        href: "https://drive.google.com/drive/u/1/folders/1o-Z2sgPsMofTj6FAYQElMhhzdpSk91R6",
+        label: "View Public Files",
+        external: true,
+      },
     },
     {
       number: 4,
       title: "Receive Welcome Email",
       description:
-        "Await your welcome email. If you don't receive it within one week, contact us at onboarding@gigharborwc.org.",
+        "Within one week of completing both the orientation and the application, you will receive your welcome email. If you don't receive it, contact us at onboarding@gigharborwc.org.",
     },
     {
       number: 5,
@@ -97,6 +122,9 @@ export default function Orientation() {
                   <p className="text-sm text-foreground/60">
                     {o.time} &middot; {o.location}
                   </p>
+                  <p className="text-xs text-foreground/50 mt-0.5">
+                    {o.address}
+                  </p>
                 </div>
               </div>
             ))}
@@ -121,6 +149,25 @@ export default function Orientation() {
                     {step.title}
                   </h3>
                   <p className="text-foreground/70 mt-1">{step.description}</p>
+                  {"link" in step && step.link && (
+                    "external" in step.link && step.link.external ? (
+                      <a
+                        href={step.link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block mt-2 text-sm font-medium text-teal hover:text-teal-dark underline"
+                      >
+                        {step.link.label} &rarr;
+                      </a>
+                    ) : (
+                      <Link
+                        href={step.link.href}
+                        className="inline-block mt-2 text-sm font-medium text-teal hover:text-teal-dark underline"
+                      >
+                        {step.link.label} &rarr;
+                      </Link>
+                    )
+                  )}
                 </div>
               </div>
             ))}

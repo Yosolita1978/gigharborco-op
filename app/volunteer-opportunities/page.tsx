@@ -5,17 +5,17 @@ const roleCategories = [
     title: "Officers",
     description:
       "Guide the organization through decision-making and policy development.",
-    roles: ["CFO (Chief Financial Officer)", "CMO (Chief Marketing Officer)"],
+    roles: ["COO (Chief Operations Officer)", "CFO (Chief Financial Officer)", "CMO (Chief Marketing Officer)"],
     accent: "bg-teal/10 border-teal/30",
   },
   {
-    title: "Managers",
+    title: "Team Leaders",
     description: "Oversee teams and facilitate communication.",
     roles: ["Fundraising Manager", "Marketing Manager", "Technology Manager"],
     accent: "bg-mint/30 border-mint-dark/30",
   },
   {
-    title: "Coordinators",
+    title: "Team Members",
     description:
       "The heartbeat of the co-op — maintaining structure and responding to community needs.",
     roles: [

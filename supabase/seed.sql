@@ -11,4 +11,14 @@ INSERT INTO categories (name) VALUES
   ('Community Service OUTSIDE of Gig Harbor'),
   ('GHWCo-Op Community Garden/Space Renovation'),
   ('Admin'),
-  ('Meeting');
+  ('Meeting'),
+  ('Donation'),
+  ('Activity'),
+  ('Community Service'),
+  ('Co-op Nest'),
+  ('Event'),
+  ('Blood Donation'),
+  ('Co-op Garden'),
+  ('Chats'),
+  ('Co-op Coop'),
+  ('Co-op Childcare');

@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/src/lib/supabase/client";
 
-export default function Login() {
-  const router = useRouter();
+export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [sent, setSent] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -18,19 +16,50 @@ export default function Login() {
     setLoading(true);
 
     const supabase = createClient();
-    const { error: authError } = await supabase.auth.signInWithPassword({
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(
       email,
-      password,
-    });
+      {
+        redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
+      }
+    );
 
-    if (authError) {
-      setError("Invalid email or password. Please try again.");
-      setLoading(false);
+    setLoading(false);
+
+    if (resetError) {
+      setError("Something went wrong. Please try again.");
       return;
     }
 
-    router.push("/dashboard");
-    router.refresh();
+    setSent(true);
+  }
+
+  if (sent) {
+    return (
+      <section className="py-20 px-6">
+        <div className="mx-auto max-w-md">
+          <div className="bg-mint/20 rounded-2xl p-8 md:p-12 text-center">
+            <h1 className="font-serif text-3xl text-foreground mb-4">
+              Check Your Email
+            </h1>
+            <p className="text-foreground/60 mb-6">
+              We sent a password reset link to{" "}
+              <span className="font-medium text-foreground">{email}</span>.
+              Click the link in the email to set a new password.
+            </p>
+            <p className="text-foreground/50 text-sm mb-8">
+              Don&apos;t see it? Check your spam folder. The link expires in 1
+              hour.
+            </p>
+            <Link
+              href="/login"
+              className="text-teal font-medium hover:underline"
+            >
+              &larr; Back to Login
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -38,10 +67,11 @@ export default function Login() {
       <div className="mx-auto max-w-md">
         <div className="bg-mint/20 rounded-2xl p-8 md:p-12">
           <h1 className="font-serif text-3xl text-foreground mb-2 text-center">
-            Member Login
+            Reset Password
           </h1>
           <p className="text-foreground/60 text-center mb-8">
-            Sign in to view your Time Bank balance and history.
+            Enter your email and we&apos;ll send you a link to reset your
+            password.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -63,34 +93,6 @@ export default function Login() {
               />
             </div>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-foreground mb-1.5"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                required
-                minLength={8}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-lg border border-foreground/20 bg-white px-4 py-3 text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal"
-                placeholder="••••••••"
-              />
-            </div>
-
-            <div className="text-right -mt-2">
-              <Link
-                href="/forgot-password"
-                className="text-sm text-teal font-medium hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
-
             {error && (
               <p className="text-red-600 text-sm text-center">{error}</p>
             )}
@@ -100,17 +102,16 @@ export default function Login() {
               disabled={loading}
               className="w-full bg-teal text-white font-semibold rounded-full px-8 py-3 hover:bg-teal-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? "Sending..." : "Send Reset Link"}
             </button>
           </form>
 
           <p className="text-center text-sm text-foreground/60 mt-6">
-            Don&apos;t have an account?{" "}
             <Link
-              href="/signup"
+              href="/login"
               className="text-teal font-medium hover:underline"
             >
-              Sign up
+              &larr; Back to Login
             </Link>
           </p>
         </div>

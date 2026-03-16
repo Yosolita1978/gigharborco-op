@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/src/lib/supabase/server";
 import SignOutButton from "./SignOutButton";
@@ -88,6 +89,42 @@ export default async function Dashboard() {
 
         {member && (
           <div className="space-y-8">
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/dashboard/submit-hours"
+                className="inline-block bg-teal text-white font-semibold rounded-full px-6 py-3 hover:bg-teal-dark transition-colors"
+              >
+                Submit Hours
+              </Link>
+              <Link
+                href="/dashboard/request-help"
+                className="inline-block border-2 border-teal text-teal font-semibold rounded-full px-6 py-3 hover:bg-teal/10 transition-colors"
+              >
+                Request Help
+              </Link>
+              <Link
+                href="/dashboard/tasks"
+                className="inline-block border-2 border-teal text-teal font-semibold rounded-full px-6 py-3 hover:bg-teal/10 transition-colors"
+              >
+                Browse Tasks
+              </Link>
+              {member.role === "admin" && (
+                <Link
+                  href="/dashboard/manage"
+                  className="inline-block bg-teal text-white font-semibold rounded-full px-6 py-3 hover:bg-teal-dark transition-colors"
+                >
+                  Manage
+                </Link>
+              )}
+              {(member.role === "manager" || member.role === "admin") && (
+                <Link
+                  href="/dashboard/reports"
+                  className="inline-block bg-teal text-white font-semibold rounded-full px-6 py-3 hover:bg-teal-dark transition-colors"
+                >
+                  Reports
+                </Link>
+              )}
+            </div>
             <BalanceCards balance={balance} />
             <TransactionHistory transactions={transactions} />
           </div>
